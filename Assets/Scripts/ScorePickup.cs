@@ -1,26 +1,31 @@
 using UnityEngine;
 
-
 // A coin that adds points to the score when the player touches it.
-// Needs a collider with Is Trigger ticked on the same GameObject.
 public class ScorePickup : MonoBehaviour
 {
-    // How many points this coin is worth (change it in the Inspector)
-    [SerializeField] private int points = 10;
+    [SerializeField] private int points = 50;
+    [SerializeField] private AudioClip pickupSound;
 
-
-    // Called automatically when something enters this trigger
     private void OnTriggerEnter(Collider other)
     {
-        // Only react to the player, ignore everything else
-        if (other.CompareTag("Player"))
+        if (!other.CompareTag("Player")) return;
+
+        // Double the points while the score boost is on
+        int multiplier = 1;
+        PlayerPowerUps powerUps = other.GetComponent<PlayerPowerUps>();
+        if (powerUps != null)
         {
-            // Add our points through the ScoreManager singleton
-            ScoreManager.Instance.AddScore(points);
-
-
-            // Remove the coin from the scene: it's collected once and gone
-            Destroy(gameObject);
+            multiplier = powerUps.ScoreMultiplier;
         }
+
+        GameManager.Instance.AddScore(points * multiplier);
+
+        // PlayClipAtPoint keeps playing even though we destroy the coin next
+        if (pickupSound != null)
+        {
+            AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+        }
+
+        Destroy(gameObject);
     }
 }

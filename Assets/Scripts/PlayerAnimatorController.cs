@@ -1,9 +1,14 @@
 using UnityEngine;
- 
+
 // Sends the player's movement to the Animator every frame
 // so the right animation plays at the right time.
 public class PlayerAnimatorController : MonoBehaviour
 {
+
+    [Header("Double Jump Effects")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip doubleJumpSound;
+    [SerializeField] private ParticleSystem doubleJumpParticles;
     private Animator animator;       // plays the animations
     private PlayerMovement movement; // our movement script
     private Rigidbody rb;            // to read the player's speed
@@ -44,7 +49,24 @@ public class PlayerAnimatorController : MonoBehaviour
             if (Input.GetButtonDown("Jump") && movement.TryDoubleJump())
             {
                 animator.SetTrigger("doDoubleJump");
+                // Play the double jump sound effect
+                PlayDoubleJumpEffects();
             }
+        }
+    }
+
+    private void PlayDoubleJumpEffects()
+    {
+        // Play the double jump sound effect
+        if (audioSource != null && doubleJumpSound != null)
+        {
+            audioSource.PlayOneShot(doubleJumpSound);
+        }
+
+        // Play the double jump particle effect
+        if (doubleJumpParticles != null)
+        {
+            doubleJumpParticles.Play();
         }
     }
 }

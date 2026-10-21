@@ -12,6 +12,6 @@ public class EndScreen : MonoBehaviour
         Cursor.visible = true;
         // No ScoreManager object exists in this scene, but we can
         // still read the static FinalScore through the class name
-        finalScoreText.text = "Final Score: " + ScoreManager.FinalScore;
+        finalScoreText.text = "Final Score: " + GameManager.FinalScore;
     }
 }
