@@ -1817,6 +1817,7 @@ MonoBehaviour:
   minJumpForce: 5
   maxJumpForce: 10
   maxHoldTime: 3
+  runMultiplier: 2
   groundDistance: 0.5
   groundMask:
     serializedVersion: 2

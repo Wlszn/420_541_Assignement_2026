@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        // A GameManager already exists: remove this extra one
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -26,7 +25,7 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);   // do NOT destroy when a new scene loads
+        DontDestroyOnLoad(gameObject); 
     }
 
     public void AddScore(int amount)
@@ -48,13 +47,13 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        scoreAtLevelStart = Score;   // remember the score we reached
+        scoreAtLevelStart = Score;   
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void RestartLevel()
     {
-        Score = scoreAtLevelStart;   // undo points gained during the failed attempt
+        Score = scoreAtLevelStart;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

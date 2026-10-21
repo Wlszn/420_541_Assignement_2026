@@ -139,7 +139,7 @@ public class PlayerMovement : MonoBehaviour
         // Calculate velocity based on current forward vector
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            SpeedMultiplier = 3f;
+            SpeedMultiplier = 2f;
         }
         else
         {
